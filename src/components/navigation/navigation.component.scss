@@ -1,0 +1,46 @@
+@import "../../variables.scss";
+
+.twitter-nav-items {
+    font-size: $twitter-font-size-big;
+    font-weight: bold;
+
+    .nav-item {
+        padding:5px;
+    }
+}
+
+.twitter-nav-items .nav-item i{
+    font-size: $twitter-icon-size;
+}
+
+.twitter-nav-items .nav-item i:hover{
+    color: $twitter-link-active-color;
+}
+
+.twitter-nav-items .nav-button{
+    font-size: $twitter-font-size-big;
+    color: $twitter-primary-font-color;
+    border: none;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 10px 20px;
+}
+
+.twitter-nav-items .nav-button:hover{
+    color: $twitter-link-active-color;
+    border: none;
+    background: $twitter-link-hover-background;
+}
+
+.twitter-nav-items .nav-button.active{
+    color: $twitter-link-active-color;
+    background: none;
+}
+
+.nav-item span{
+    padding: 0 20px;
+}
+
+.twitter-icon{
+    padding-left:20px;
+}

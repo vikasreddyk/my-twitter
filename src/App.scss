@@ -1,0 +1,16 @@
+@import "~bootstrap/scss/bootstrap";
+@import "./variables.scss";
+
+.App{
+  background-color: $twitter-background;
+  height:100vh;
+  color: $twitter-primary-font-color;
+}
+
+.App .container .row .col{
+  height: 100vh;
+}
+
+.nav-col{
+  border-right: 1px solid $twitter-border-color-primary
+}

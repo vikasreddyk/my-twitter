@@ -7,10 +7,15 @@
   color: $twitter-primary-font-color;
 }
 
-.App .container .row .col{
+.app-route-col{
   height: 100vh;
 }
 
 .nav-col{
   border-right: 1px solid $twitter-border-color-primary
+}
+
+.App .app-container{
+ max-width: none;
+ margin: 0;
 }

@@ -1,0 +1,49 @@
+@import "../../../variables.scss";
+
+.user-image{
+    border-radius: 50%;
+}
+
+.tweet-row{
+    padding: 20px 10px;
+    display: flex;
+    border-bottom: 1px solid #2f3336;
+}
+
+.author-name{
+    font-weight: 800;
+    font-size: $twitter-font-size-small;
+}
+
+.tweet-avatar-col{
+    width:65px;
+}
+
+.author-id {
+    font-size: $twitter-font-size-small;
+    font-weight: 400;
+    padding-left: 7px;
+    color: $twitter-secondary-font-color
+}
+
+.tweet-content-container{
+    width: 100%;
+}
+
+.tweet-text{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.tweet-attachments{
+    padding-top: 15px;
+}
+
+.tweet-attachment-img{
+    max-width: 500px;
+}
+
+.tweet-fav-icon{
+    color: $twitter-link-active-color;
+    cursor: pointer;
+}

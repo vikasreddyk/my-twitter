@@ -19,6 +19,7 @@ function TweetComponent(props: TweetProps) {
         <img
           className="user-image"
           src={props.tweet.author.profileImageUrl}
+          alt="Profile pic"
         ></img>
       </div>
       <div className="tweet-content-container">
@@ -53,6 +54,7 @@ function TweetComponent(props: TweetProps) {
                     className="tweet-attachment-img"
                     src={attachment.previewImageURL}
                     width={attachment.width}
+                    alt="Tweet Attachment"
                   ></img>
                 </Carousel.Item>
               ))}

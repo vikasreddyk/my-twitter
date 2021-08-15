@@ -1,10 +1,9 @@
 import { FormControl, Button, InputGroup } from "react-bootstrap";
 import "./explore.component.scss";
-// import axios from "axios";
-import { mockTweets } from "../../mock/tweets";
+import axios from "axios";
 import { fetchTweets, ParsedTweet } from "../../utils/tweet-utils";
 import DisplayTweetsComponent from "../DisplayTweets/displayTweets.component";
-import { useState} from "react";
+import { useState } from "react";
 
 function ExploreComponent() {
   let inputVal: string;
@@ -13,23 +12,34 @@ function ExploreComponent() {
     inputVal = event.target.value;
   };
 
-  const [tweets,setTweets] = useState<Array<ParsedTweet>>([]);
+  const handleKeyPress = (event: any) =>{
+    if(event.charCode === 13){
+      handleNewSearch();
+    }
+  }
+
+  const [tweets, setTweets] = useState<Array<ParsedTweet>>([]);
+  const [status, setStatus] = useState("init");
 
   const handleNewSearch = () => {
-    // axios
-    //   .get(
-    //     "https://api.twitter.com/2/tweets/search/recent?query=nyc&tweet.fields=author_id,created_at,entities,geo,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source",
-    //     {
-    //       headers: {
-    //         Authorization:
-    //           "Bearer AAAAAAAAAAAAAAAAAAAAAAkXSgEAAAAAQ%2B7CHvY%2FvZ7WmR2oPhespzsHi6s%3DRJhMfHjvRxa7t9BGm5Nzd0hmSExs8zPUXnxPQ4zHWNrHyJcaF3",
-    //       },
-    //     }
-    //   )
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
-    setTweets(fetchTweets(mockTweets));
+    if(!inputVal.trim()){
+      return;
+    }
+    setStatus("searching");
+    axios
+      .get(`https://damp-wave-61642.herokuapp.com/?search=${inputVal}`, {
+        headers: {
+          Authorization:
+            "Bearer AAAAAAAAAAAAAAAAAAAAAAkXSgEAAAAAQ%2B7CHvY%2FvZ7WmR2oPhespzsHi6s%3DRJhMfHjvRxa7t9BGm5Nzd0hmSExs8zPUXnxPQ4zHWNrHyJcaF3",
+        },
+      })
+      .then((data) => {
+        setStatus("success");
+        setTweets(fetchTweets(data.data));
+      })
+      .catch((error) => {
+        setStatus("error");
+      });
   };
 
   return (
@@ -40,6 +50,7 @@ function ExploreComponent() {
           aria-label="Search Tweets"
           aria-describedby="basic-addon2"
           onChange={handleSearchChange}
+          onKeyPress={handleKeyPress}
         />
         <Button
           onClick={handleNewSearch}
@@ -50,7 +61,15 @@ function ExploreComponent() {
         </Button>
       </InputGroup>
       <div className="search-results">
-        <DisplayTweetsComponent tweets={tweets}></DisplayTweetsComponent>
+        {status === "success" &&
+          (tweets.length ? (
+            <DisplayTweetsComponent tweets={tweets}></DisplayTweetsComponent>
+          ) : (
+            <div className="search-message">No Results Found</div>
+          ))}
+        {status === "error" && <div className="search-message">Error Fetching tweets</div>}
+        {status === "init" && <div className="search-message">Please Start searching</div>}
+        {status === "searching" && <img alt="spinner" className="spinner-image" src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"></img>}
       </div>
     </div>
   );

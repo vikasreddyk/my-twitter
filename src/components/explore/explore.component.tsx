@@ -22,7 +22,7 @@ function ExploreComponent() {
   const [status, setStatus] = useState("init");
 
   const handleNewSearch = () => {
-    if(!inputVal.trim()){
+    if(!inputVal || !inputVal.trim() || status === "searching"){
       return;
     }
     setStatus("searching");

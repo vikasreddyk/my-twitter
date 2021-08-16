@@ -1,5 +1,5 @@
 import { Carousel } from "react-bootstrap";
-import { ParsedTweet } from "../../../utils/tweet-utils";
+import { ParsedTweet, getDisplayTime } from "../../../utils/tweet-utils";
 import "./tweet.component.scss";
 import { AppContext } from "../../../context/AppContext";
 import { useContext } from "react";
@@ -26,7 +26,7 @@ function TweetComponent(props: TweetProps) {
         <div>
           <span className="author-name">{props.tweet.author.name} </span>
           <span className="author-id">@{props.tweet.author.userName} .</span>
-          <span className="author-id">{props.tweet.createdAt} </span>
+          <span className="author-id">{getDisplayTime(props.tweet.createdAt)} </span>
           {isFavorite(props.tweet.id, favoriteContext.favorites) ? (
             <i
               className="bi bi-star-fill tweet-fav-icon"

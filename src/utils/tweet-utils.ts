@@ -18,6 +18,23 @@ export const fetchTweets = (tweets: Tweets) => {
   return parsedTweets;
 };
 
+export const getDisplayTime = (createdAt:string) => {
+    const currentDate = new Date();
+    const createdDate = new Date(createdAt);
+    const currentTime = currentDate.getTime();
+    const createdTime = createdDate.getTime();
+    const minutes = (currentTime-createdTime)/(1000*60)
+    const hours = minutes/60;
+    if(hours<24){
+        return minutes>60 ? Math.floor(hours)+'h' : Math.floor(minutes)+'min';
+    }
+    if(createdDate.getFullYear() === currentDate.getFullYear()){
+        const gmtStringArray = createdDate.toUTCString().split(" ");
+        return `${gmtStringArray[1]} ${gmtStringArray[2]}`
+    }
+    return createdDate.toISOString().split('T')[0];
+}
+
 const getAuthorDetails = (users: Array<any>, authorId: string): TweetAuthor => {
   const userData = users.filter((user) => user.id === authorId)[0];
   const author = {
